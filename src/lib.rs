@@ -114,14 +114,13 @@ mod test {
                 .add_pair(label("test"))
                 .add_pair(fillcolor(Color::Blue))
                 .add_pair(arrowhead(ArrowShape::Orinv));
-            Ok(assert_eq!("[name=abc;color=red;][size=12;fontsize=12;label=\"test\";fillcolor=blue;arrowhead=orinv;]", attrlist.to_string()))
+            assert_eq!("[name=abc;color=red;][size=12;fontsize=12;label=\"test\";fillcolor=blue;arrowhead=orinv;]", attrlist.to_string());
+            Ok(())
         }
         #[cfg(not(feature = "attributes"))]
         {
-            Ok(assert_eq!(
-                "[name=abc;color=red;][size=12;]",
-                attrlist.to_string()
-            ))
+            assert_eq!("[name=abc;color=red;][size=12;]", attrlist.to_string());
+            Ok(())
         }
     }
 
