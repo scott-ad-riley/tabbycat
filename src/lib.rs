@@ -11,6 +11,7 @@
 //! By enabling this feature, you will be able to write something like:
 //!
 //! ```
+//! #[cfg(feature = "attributes")] {
 //! use tabbycat::attributes::*;
 //! use tabbycat::AttrList;
 //! let attrlist =  AttrList::new()
@@ -20,11 +21,13 @@
 //!     .add_pair(fillcolor(Color::Blue))
 //!     .add_pair(arrowhead(ArrowShape::Orinv));
 //! assert_eq!("[fontsize=12;label=\"test\";][fillcolor=blue;arrowhead=orinv;]", attrlist.to_string())
+//! }
 //! ```
 //!
 //! # Example
 //!
 //! ```
+//! #[cfg(feature = "attributes")] {
 //! use tabbycat::attributes::*;
 //! use tabbycat::{AttrList, GraphBuilder, GraphType, Identity, StmtList, Edge, SubGraph};
 //! let graph = GraphBuilder::default()
@@ -43,6 +46,7 @@
 //!     .build()
 //!     .unwrap();
 //! println!("{}", graph);
+//! }
 //! ```
 //!
 //! This will generate an output like:
