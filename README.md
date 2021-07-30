@@ -5,7 +5,7 @@ The whole crate is implemented following the dot language specification listed a
 # Attributes
 There is an optional feature `attributes` which implemented a subset of the [attributes list of the dot language](https://graphviz.org/doc/info/attrs.html).
 By enabling this feature, you will be able to write something like:
-```
+```rust
 use tabbycat::attributes::*;
 use tabbycat::AttrList;
 let attrlist =  AttrList::new()
@@ -17,7 +17,7 @@ let attrlist =  AttrList::new()
 assert_eq!("[fontsize=12;label=\"test\";][fillcolor=blue;arrowhead=orinv;]", attrlist.to_string())
 ```
 # Example
-```
+```rust
 use tabbycat::attributes::*;
 use tabbycat::{AttrList, GraphBuilder, GraphType, Identity, StmtList, Edge, SubGraph};
 let graph = GraphBuilder::default()
