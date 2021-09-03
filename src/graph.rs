@@ -165,6 +165,47 @@ impl<'a> SubGraph<'a> {
             stmts: Box::new(list),
         }
     }
+
+    /// Add an attribute list to the subgraph
+    pub fn add_attrlist(mut self, attr_type: AttrType, list: AttrList<'a>) -> Self {
+        let stmts = match self {
+            SubGraph::SubGraph {
+                id: _,
+                ref mut stmts,
+            } => stmts,
+            SubGraph::Cluster(ref mut stmts) => stmts,
+        };
+        stmts.as_mut().0.extend(vec![Stmt::Attr(attr_type, list)]);
+        self
+    }
+
+    /// Add an attribute to the subgraph
+    pub fn add_attribute(
+        mut self,
+        attr_type: AttrType,
+        key: Identity<'a>,
+        value: Identity<'a>,
+    ) -> Self {
+        match self {
+            SubGraph::SubGraph {
+                id: _,
+                ref mut stmts,
+            } => {
+                stmts
+                    .0
+                    .push(Stmt::Attr(attr_type, AttrList(vec![vec![(key, value)]])));
+            }
+            SubGraph::Cluster(ref mut stmts) => stmts
+                .0
+                .push(Stmt::Attr(attr_type, AttrList(vec![vec![(key, value)]]))),
+        }
+
+        self
+    }
+    /// Add an attribute to the subgraph (in pair)
+    pub fn add_attrpair(self, attr_type: AttrType, pair: AttrPair<'a>) -> Self {
+        self.add_attribute(attr_type, pair.0, pair.1)
+    }
 }
 
 /// The port suffix.

@@ -210,4 +210,53 @@ mod test {
         println!("{:#}", g);
         Ok(())
     }
+
+    #[test]
+    fn test_subgraph_add_attribute() -> anyhow::Result<()> {
+        use crate::*;
+        // create a small graph and add a subgraph
+        let g = SubGraph::subgraph(Some(Identity::quoted("cluster_0")), StmtList::new())
+            .add_attribute(
+                AttrType::Graph,
+                Identity::id("color")?,
+                Identity::id("lightgrey")?,
+            );
+        assert_eq!(
+            "subgraph \"cluster_0\" {graph [color=lightgrey;];}",
+            g.to_string()
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_subgraph_add_attrlist() -> anyhow::Result<()> {
+        use crate::*;
+        let g = SubGraph::subgraph(Some(Identity::quoted("cluster_0")), StmtList::new())
+            .add_attrlist(
+                AttrType::Graph,
+                AttrList(vec![vec![(
+                    Identity::id("color")?,
+                    Identity::id("lightgrey")?,
+                )]]),
+            );
+        assert_eq!(
+            "subgraph \"cluster_0\" {graph [color=lightgrey;];}",
+            g.to_string()
+        );
+        Ok(())
+    }
+    #[test]
+    fn test_subgraph_add_attrpair() -> anyhow::Result<()> {
+        use crate::*;
+        let g = SubGraph::subgraph(Some(Identity::quoted("cluster_0")), StmtList::new())
+            .add_attrpair(
+                AttrType::Graph,
+                (Identity::id("color")?, Identity::id("lightgrey")?),
+            );
+        assert_eq!(
+            "subgraph \"cluster_0\" {graph [color=lightgrey;];}",
+            g.to_string()
+        );
+        Ok(())
+    }
 }
